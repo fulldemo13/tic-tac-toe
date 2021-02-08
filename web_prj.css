@@ -15,6 +15,7 @@ body{
 	color: rgb(75, 75, 75);
 }
 .container {
+	position: relative;
 	min-height: 50vh;
 	display: flex;
 	flex-direction: column;
@@ -33,8 +34,7 @@ body{
 	grid-template-columns: auto auto auto;
 	}
 .middle{
-	position:absolute;
-	margin-bottom: 8%;
+	position: absolute;
 	width: 309px;
 	height: 309px;
 	background: rgba(53, 53, 53, 0.829);

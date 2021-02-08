@@ -9,6 +9,7 @@ var	ai = 0;
 function	dos_jugadores()
 {
 	document.getElementById("juego").style="visibility:visible";
+	document.getElementById("reinicio").style="visibility:visible";
 	document.getElementById("start").style="visibility:hidden";
 }
 
