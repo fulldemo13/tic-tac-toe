@@ -111,7 +111,7 @@ function checkCelda(celda, winner)
 
 function AIempate(celda)
 {
-	var ai_celda = 4;		// poner cualquier impar si queremos que eliga una esquina si cogemos el centro
+	var ai_celda = 4;		// empezar en el centro
 	var espacios = numEspacios();
 	var print = 0;
 	var i = 0;
@@ -128,7 +128,7 @@ function AIempate(celda)
 					mapa[ai_celda] = 2;
 			else
 			{
-				while (mapa[ai_celda] != 0)						// para que coja las esquinas:      ...|| ai_celda % 2 == 1)
+				while (mapa[ai_celda] != 0)
 					ai_celda = Math.round(Math.random() * 9);
 				mapa[ai_celda] = 2;
 			}
