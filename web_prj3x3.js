@@ -13,10 +13,16 @@ function	dos_jugadores()
 	document.getElementById("start").style="visibility:hidden";
 }
 
-function un_jugador()
+function ai_random()
 {
 	dos_jugadores();
 	ai = 1;
+}
+
+function ai_empate()
+{
+	dos_jugadores();
+	ai = 2;
 }
 
 function numEspacios()
@@ -66,41 +72,109 @@ function s_on(celda)
 
 function s_off(celda)
 {
-celda.innerHTML="";
+	celda.innerHTML="";
 }
 
-function pcelda(celda)
+function AIrandom(celda)
 {
-	if (ai)
+	var ai_celda = Math.round(Math.random() * 9);
+
+	if (mapa[celda] == 0)
 	{
-		var ai_celda = Math.round(Math.random() * 9); 
-		if (mapa[celda] == 0)
+		mapa[celda]=1;
+	}
+	if (numEspacios() > 1)
+	{
+		while (mapa[ai_celda] != 0)
+			ai_celda = Math.round(Math.random() * 9);
+		mapa[ai_celda]=2;
+	}
+}
+
+function checkCelda(celda)
+{
+	var print = 0;
+
+	if (mapa[celda] == 0)
+	{
+		mapa[celda] = 1;
+		if (ganador() == 1)
 		{
-			mapa[celda]=1;
+			mapa[celda] = 2;
+			print = 1;
 		}
-		if (numEspacios() > 1)
+		else
+			mapa[celda] = 0;
+	}
+	return print;
+}
+
+function AIempate(celda)
+{
+	var ai_celda = Math.round(Math.random() * 9);
+	var espacios = numEspacios();
+	var print = 0;
+	var i = 1;
+
+	if (mapa[celda] == 0)
+	{
+		mapa[celda] = 1;
+	}
+	if (espacios > 1)
+	{
+		if (espacios > 7)
 		{
 			while (mapa[ai_celda] != 0)
 				ai_celda = Math.round(Math.random() * 9);
 			mapa[ai_celda]=2;
 		}
+		else
+		{
+			while (i < 9 && !print)
+			{
+				print = checkCelda(celda + i);				
+				i++;
+			}
+			while (celda >= 0 && !print)
+			{
+				print = checkCelda(celda);					
+				celda--;
+			}
+			if (!print)
+			{
+				while (mapa[ai_celda] != 0)
+					ai_celda = Math.round(Math.random() * 9);
+				mapa[ai_celda]=2;
+			}
+
+		}
+	}
+}
+
+function playerVSplayer(celda)
+{
+	if (jugador==1)
+	{
+		mapa[celda]=1;
+		jugador=2;
 	}
 	else
 	{
-		if (mapa[celda]==0)
-		{
-			if (jugador==1)
-			{
-				mapa[celda]=1;
-				jugador=2;
-			}
-			else
-			{
-				mapa[celda]=2;
-				jugador=1; 
-			}
-		}
+		mapa[celda]=2;
+		jugador=1; 
 	}
+}
+
+function pcelda(celda)
+{
+	if (mapa[celda] == 0)
+		if (ai == 1)
+			AIrandom(celda);
+		else if (ai == 2)
+			AIempate(celda);
+		else
+			playerVSplayer(celda);
+		
 	dibujar();
 	var r = ganador();
 	switch(r)
