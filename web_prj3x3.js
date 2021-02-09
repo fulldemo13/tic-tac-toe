@@ -179,7 +179,10 @@ function printGanador(i) {
 	if (!ai)
 		document.getElementById("p" + i).innerHTML="<h2>¡Ha Ganado el Jugador " + i + " !</h2>";
 	else
-		document.getElementById("p" + i).innerHTML="<h2>¡Has Ganado!</h2>";
+		if (i == 1)
+			document.getElementById("p" + i).innerHTML="<h2>¡Has Ganado!</h2>";
+		else
+			document.getElementById("p" + i).innerHTML="<h2>¡Has Perdido!</h2>";
 }
 
 function pcelda(celda)
@@ -204,7 +207,7 @@ function pcelda(celda)
 		break;
 		case 2:
 			document.getElementById("p2").style="visibility: visible; color: rgb(128, 190, 226);";
-			printGanador(r);
+			printGanador(r)
 		break;
 		case 3:
 			document.getElementById("empate").style="visibility: visible; color: white;";
